@@ -1,0 +1,49 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derash-API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <div class="container my-5 py-5">
+    <form action="/" method="post" class="mb-5">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="submit" name="filter" value="get" class="btn-lg px-4 gap-3">Get</button>
+          <button type="submit" name="filter" value="send" class="btn-lg px-4">Send</button>
+        </div>
+      </form>
+    <% if(!isSend) {%>
+        <form action="/get" method="post">
+            <label for="bill_id">Bill_id</label>
+            <input type="text" name="bill_id" id="bill_id">
+            <button type="submit">Get</button>
+        </form>
+    <% }else { %>
+        <form action="/send" method="post">
+            <label for="bill_id">Bill_id</label>
+            <input type="text" name="bill_id" id="bill_id">
+            <button type="submit">Send</button>
+        </form>
+    <% } %>
+
+    <% if(locals.data) {%>
+        <% if(!isSend) {%>
+        <dl>
+            <dt>Bill_id</dt>
+            <dd><%= data.bill_id %></dd>
+            <dt>Bill_Description</dt>
+            <dd><%= data.bill_desc %></dd>
+            <dt>Due Date</dt>
+            <dd><%= data.due_date %></dd>
+        </dl>
+        <% }else {%>
+            <dt>Bill_id</dt>
+            <dd><%= data.bill_id %></dd>
+            <dt>Confirmation</dt>
+            <dd><%= data.message %></dd>
+        <% } %>
+    <% } %>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
