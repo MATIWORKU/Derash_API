@@ -15,33 +15,63 @@
       </form>
     <% if(!isSend) {%>
         <form action="/get" method="post">
-            <label for="bill_id">Bill_id</label>
-            <input type="text" name="bill_id" id="bill_id">
+            <input type="text" name="bill_id" id="bill_id" placeholder="Bill ID">
             <button type="submit">Get</button>
         </form>
     <% }else { %>
-        <form action="/send" method="post">
-            <label for="bill_id">Bill_id</label>
-            <input type="text" name="bill_id" id="bill_id">
+        <form id="book-form" action="/send" method="post">
+            <input type="text" name="bill_id" id="bill_id" placeholder="Bill ID" required autofocus>
+            <input type="text" name="reason" placeholder="Reason For Bill" required>
+            <input type="text" name="amount_due" placeholder="Amount To Be Paid" required>
+            <input type="date" name="due_date" required>
             <button type="submit">Send</button>
         </form>
     <% } %>
 
     <% if(locals.data) {%>
         <% if(!isSend) {%>
-        <dl>
-            <dt>Bill_id</dt>
-            <dd><%= data.bill_id %></dd>
-            <dt>Bill_Description</dt>
-            <dd><%= data.bill_desc %></dd>
-            <dt>Due Date</dt>
-            <dd><%= data.due_date %></dd>
-        </dl>
+            <div class="container mt-2 py-5">
+                <dl>
+                    <dt>Bill_id</dt>
+                    <dd><%= data.bill_id %></dd>
+                    <dt>Bill_Description</dt>
+                    <dd><%= data.bill_desc %></dd>
+                    <dt>Amount</dt>
+                    <dd><%= data.amount_due %></dd>
+                    <dt>Due Date</dt>
+                    <dd><%= data.due_date %></dd>
+                </dl>
+                <form action="/status" method="post">
+                    <button type="submit" name="bill_id" value="<%= data.bill_id %>">Check Status</button>
+                </form>
+                <% if(message !== ""){%>
+                    <div class="container_fluid my-5">
+                        <div class="p-5 text-center bg-body-tertiary rounded-3">
+                          <p class="lead">
+                            <%= message %>
+                          </p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
         <% }else {%>
-            <dt>Bill_id</dt>
-            <dd><%= data.bill_id %></dd>
-            <dt>Confirmation</dt>
-            <dd><%= data.message %></dd>
+            <div class="container mt-2 py-5">
+                <dl>
+                    <dt>Bill_id</dt>
+                    <dd><%= data.bill_id %></dd>
+                    <dt>Confirmation</dt>
+                    <dd><%= data.message %></dd>
+                </dl>
+                <% if(message !== ""){%>
+                    <div class="container_fluid my-5">
+                        <div class="p-5 text-center rounded-3">
+                          <p class="lead">
+                            <%= message %>
+                          </p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
         <% } %>
     <% } %>
 </div>
