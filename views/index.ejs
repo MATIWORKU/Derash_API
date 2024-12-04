@@ -9,14 +9,14 @@
     <div class="container my-5 py-5">
     <form action="/" method="post" class="mb-5">
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <button type="submit" name="filter" value="get" class="btn-lg px-4 gap-3">Get</button>
-          <button type="submit" name="filter" value="send" class="btn-lg px-4">Send</button>
+          <button type="submit" name="filter" value="get" class="btn-lg px-4 gap-3">Read</button>
+          <button type="submit" name="filter" value="send" class="btn-lg px-4">Create</button>
         </div>
       </form>
     <% if(!isSend) {%>
         <form action="/get" method="post">
             <input type="text" name="bill_id" id="bill_id" placeholder="Bill ID">
-            <button type="submit">Get</button>
+            <button type="submit">Read Bill</button>
         </form>
     <% }else { %>
         <form id="book-form" action="/send" method="post">
@@ -24,11 +24,11 @@
             <input type="text" name="reason" placeholder="Reason For Bill" required>
             <input type="text" name="amount_due" placeholder="Amount To Be Paid" required>
             <input type="date" name="due_date" required>
-            <button type="submit">Send</button>
+            <button type="submit">Create Bill</button>
         </form>
     <% } %>
 
-    <% if(locals.data) {%>
+    <% if(locals.data) {%> 
         <% if(!isSend) {%>
             <div class="container mt-2 py-5">
                 <dl>
@@ -46,7 +46,7 @@
                 </form>
                 <% if(message !== ""){%>
                     <div class="container_fluid my-5">
-                        <div class="p-5 text-center bg-body-tertiary rounded-3">
+                        <div class="p-5 text-center rounded-3">
                           <p class="lead">
                             <%= message %>
                           </p>
